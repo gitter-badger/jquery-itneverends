@@ -1,0 +1,34 @@
+{
+  "name": "jquery-itneverends",
+  "version": "0.0.1",
+  "homepage": "https://github.com/osahner/jquery-itneverends",
+  "authors": [
+    "osahner <osahner@mac.com>"
+  ],
+  "keywords": [
+    "jquery",
+    "itneverends scrolling",
+    "json"
+  ],
+  "license": "MIT",
+  "main": [
+    "src/itneverends.less",
+    "src/itneverends.js",
+    "dist/jquery.itneverends.css",
+    "dist/jquery.itneverends.js"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test"
+  ],
+  "dependencies": {
+    "jquery": ">=1.9",
+    "lodash": ">=2"    
+  },
+  "devDependencies": {
+    "qunit": ">=1.12.0",
+    "bootstrap": ">=3.2"
+  }
+}
