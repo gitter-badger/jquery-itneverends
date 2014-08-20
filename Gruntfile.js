@@ -13,7 +13,7 @@ module.exports = function (grunt) {
     banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
       '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
       '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
-      '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
+      '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %> <osahner@gmail.com>;' +
       ' Licensed MIT */\n',
     // Task configuration.
     clean: {
