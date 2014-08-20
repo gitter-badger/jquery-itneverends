@@ -1,6 +1,6 @@
-/*! itneverends - v0.0.3 - 2014-08-20
+/*! itneverends - v0.0.4 - 2014-08-20
 * https://github.com/osahner/jquery-itneverends
-* Copyright (c) 2014 Oliver Sahner; Licensed MIT */
+* Copyright (c) 2014 Oliver Sahner <osahner@gmail.com>; Licensed MIT */
 /*
 * jquery.itneverends
 *
@@ -30,7 +30,7 @@
       '{{ }); }}'
       ].join(''),
       loadingTemplate: '<div class="loading"><img src="img/ajax-loader.gif" /></li>',
-      hasMoreFunc: function (data) { return false;},
+      hasMoreFunc: function (data) { return  false;},
       reqParamsFunc: function (params) { return {}; }
     },
     plugin = this,
@@ -67,19 +67,22 @@
         $.ajax({
           data: reqParams,
           url: plugin.settings.url
-        }).always(function (data) {
+        }).done(function (data) {
           if (data) {
             $el.append($listTemplate(data));
+            var hasmore = plugin.settings.hasMoreFunc(data, reqParams);
+            updateInitiated = false;
+            $loading.css({opacity: 0});
+            if (!hasmore) {
+              $el.off('scroll', throttledScrollHandler);
+            } else if ($el.innerHeight() >= $el[0].scrollHeight) {
+              $el.trigger('scroll');
+            }
           }
+        }).fail(function (msg) {
           updateInitiated = false;
           $loading.css({opacity: 0});
-
-          if ($el.innerHeight() >= $el[0].scrollHeight) {
-            $el.trigger('scroll');
-          }
-          if (!plugin.settings.hasMoreFunc(data, reqParams)) {
-            $el.off('scroll', throttledScrollHandler);
-          }
+          $el.off('scroll', throttledScrollHandler);
         });
       }
     }, plugin.settings.delay, {leading: false});
@@ -96,4 +99,3 @@
     });
   };
 })(jQuery);
-
