@@ -22,7 +22,7 @@ In your web page:
   {{ }); }}
 </script>
 
-<ul class="itneverends">
+<ul id="mylist">
 </ul>
 
 <script>
@@ -30,12 +30,12 @@ jQuery(function($) {
   var reqParams = {
       pageNumber: 1,
       pageSize: 100,
-      height: '400px',
       sortName: 'name',
       sortOrder: 'asc'
   };
-  $('.itneverends').itneverends({
+  $('#mylist').itneverends({
     url: '/some/json/datafeed',
+    height: '400px',
     listTemplate: $('#itneverendsTemplate').html(),
     reqParamsFunc: function (params) {
       return {
@@ -58,7 +58,13 @@ jQuery(function($) {
 _(Coming soon)_
 
 ## Examples
-_(Coming soon)_
+```html
+$('#mylist').itneverends('options', {height: '200px', url: '/new/url', listTemplate: $('#newTemplate').html()});
+
+$('#mylist').itneverends('reset');
+
+```
+
 
 ## Release History
 _(Nothing yet)_
