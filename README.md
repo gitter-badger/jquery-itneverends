@@ -30,6 +30,7 @@ jQuery(function($) {
   var reqParams = {
       pageNumber: 1,
       pageSize: 100,
+      height: '400px',
       sortName: 'name',
       sortOrder: 'asc'
   };
