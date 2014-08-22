@@ -1,4 +1,4 @@
-/*! itneverends - v0.0.4 - 2014-08-20
+/*! itneverends - v0.0.5 - 2014-08-22
 * https://github.com/osahner/jquery-itneverends
 * Copyright (c) 2014 Oliver Sahner <osahner@gmail.com>; Licensed MIT */
 /*
@@ -11,6 +11,7 @@
 
 (function ($) {
   var pluginName = 'itneverends';
+  // avoid JSP Tag collision
   _.templateSettings = {
     evaluate: /\{\{(.+?)\}\}/gm,
     interpolate: /\{\{=(.+?)\}\}/gm,
@@ -23,7 +24,7 @@
       distance: 15,
       delay: 200,
       loadOnInit: false,
-      height: '400px',
+      height: 'auto',
       listTemplate: [
       '{{ _.forEach(rows, function(row) { }}',
       '<li class="list-item">{{- row.name }}</li>',
@@ -52,6 +53,34 @@
       if (plugin.settings.loadOnInit) {
         $element.trigger('scroll');
       }
+    };
+
+    plugin.options = function (newoptions) {
+      if (typeof newoptions === 'object') {
+        plugin.settings = $.extend({}, plugin.settings, newoptions);
+        if (undefined !== newoptions.height) {
+          $element.css({height: plugin.settings.height});
+        }
+        if (undefined !== newoptions.loadingTemplate) {
+          $element.next().html(plugin.settings.loadingTemplate);
+        }
+        if (undefined !== newoptions.listTemplate) {
+          $listTemplate = _.template(plugin.settings.listTemplate);
+        }
+        if (undefined !== newoptions.url) {
+          plugin.reset();
+        }
+      }
+    };
+
+    plugin.reset = function () {
+      var $loading = $element.next();
+      $element.off('scroll', throttledScrollHandler);
+      $element.html('');
+      $loading.css({opacity: 1});
+      reqParams = {};
+      $element.on('scroll', throttledScrollHandler);
+      $element.trigger('scroll');
     };
 
     var throttledScrollHandler = _.throttle(function () {
@@ -90,11 +119,30 @@
     plugin.init();
   };
 
-  $.fn[pluginName] = function (options) {
+  $.fn[pluginName] = function () {
+    var method,
+    options = {};
+
+    if (arguments.length === 1) {
+      if (typeof arguments[0] === 'string') {
+        method = arguments[0];
+      } else {
+        options = arguments[0];
+      }
+    } else if (arguments.length === 2) {
+      method = arguments[0];
+      options = arguments[1];
+    }
+
     return this.each(function () {
-      if (undefined === $(this).data(pluginName)) {
+      var $this = $(this),
+      data = $this.data(pluginName);
+
+      if (undefined === data) {
         var plugin = new $.itneverends(this, options);
-        $(this).data(pluginName, plugin);
+        $this.data(pluginName, plugin);
+      } else if (undefined !== method && undefined !== data[method]) {
+        data[method](options);
       }
     });
   };
