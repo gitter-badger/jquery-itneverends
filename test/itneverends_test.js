@@ -33,9 +33,9 @@
     strictEqual(this.elems.itneverends({url: this.url}), this.elems, 'should be chainable');
   });
 
-  //test('public function', function() {
-  //  expect(1);
-  //  strictEqual(this.elems.itneverends().data('de.medianet.itneverends').echo('ping'), 'ping', 'does public function');
-  //});
+  test('public function', function() {
+    expect(1);
+    strictEqual(this.elems.itneverends('options', {url: 'test2.json'}).data('itneverends').settings.url, 'test2.json', 'does accept new option');
+  });
 
 }(jQuery));

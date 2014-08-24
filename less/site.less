@@ -1,0 +1,22 @@
+@import "../bower_components/bootstrap/less/variables.less";
+@import "../bower_components/bootstrap/less/mixins.less";
+
+#myList {
+  border: 1px solid @list-group-border;
+  .border-top-radius(@list-group-border-radius);
+  .border-bottom-radius(@list-group-border-radius);
+
+  .list-group-item {
+    border-left: none;
+    border-right: none;
+    &:first-child {
+      .border-top-radius(0);
+      border-top: none;
+    }
+    &:last-child {
+      .border-bottom-radius(0);
+      border-bottom: 1px solid @list-group-border;
+      margin-bottom: -2px;
+    }
+  }
+}

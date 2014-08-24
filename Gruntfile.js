@@ -26,8 +26,12 @@ module.exports = function (grunt) {
         //sourceMapURL: '/fileadmin/css/theme.map'
       },
       dist: {
-        src: ['src/<%= pkg.name %>.less'],
+        src: ['less/<%= pkg.name %>.less'],
         dest: 'dist/jquery.<%= pkg.name %>.css'
+      },
+      site: {
+        src: ['less/site.less'],
+        dest: 'css/site.css'
       }
     },
     concat: {

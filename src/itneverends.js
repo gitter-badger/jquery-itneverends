@@ -21,7 +21,7 @@
       url: '',
       distance: 15,
       delay: 200,
-      loadOnInit: false,
+      loadOnInit: true,
       height: 'auto',
       listTemplate: [
       '{{ _.forEach(rows, function(row) { }}',
@@ -30,7 +30,8 @@
       ].join(''),
       loadingTemplate: '<div class="loading"><img src="img/ajax-loader.gif" /></li>',
       hasMoreFunc: function (data) { return  false;},
-      reqParamsFunc: function (params) { return {}; }
+      reqParamsFunc: function (params) { return {}; },
+      loadingDoneFunc: function (data) {}
     },
     plugin = this,
     updateInitiated = false,
@@ -74,11 +75,13 @@
     plugin.reset = function () {
       var $loading = $element.next();
       $element.off('scroll', throttledScrollHandler);
-      $element.html('');
-      $loading.css({opacity: 1});
       reqParams = {};
-      $element.on('scroll', throttledScrollHandler);
-      $element.trigger('scroll');
+      $loading.css({opacity: 1});
+      $element.children().animate({opacity: 0}, 100, function () {
+        $element.html('');
+        $element.on('scroll', throttledScrollHandler);
+        $element.trigger('scroll');  
+      });
     };
 
     var throttledScrollHandler = _.throttle(function () {
@@ -100,6 +103,7 @@
             var hasmore = plugin.settings.hasMoreFunc(data, reqParams);
             updateInitiated = false;
             $loading.css({opacity: 0});
+            plugin.settings.loadingDoneFunc(data);
             if (!hasmore) {
               $el.off('scroll', throttledScrollHandler);
             } else if ($el.innerHeight() >= $el[0].scrollHeight) {

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>jQuery-itneverends</title>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="dist/jquery.itneverends.css">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <div class="container-fluid">
+    <h1>Demo</h1>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="list-group" id="myList">
+        </div>
+        <button class="btn btn-primary" id="reload">Reload Data</button>
+      </div>
+  </div>
+  <script id="itneverendsTemplate" type="text/x-template">
+    {{ _.forEach(rows, function(row) { }}
+      <a class="list-group-item ">{{- row.name }}</a>
+    {{ }); }}
+  </script>
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/lodash/dist/lodash.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="src/itneverends.js"></script>
+  <script>
+  "use strict";
+  $(function () {
+    $('#myList').itneverends({
+      loadOnInit: true,
+      height: '200px',
+      url: 'test/test.json',
+      listTemplate: $('#itneverendsTemplate').html()
+    });
+    $('#reload').on('click', function () {
+      $('#myList').itneverends('reset');
+    });
+  });
+  </script>
+</body>
+</html>
