@@ -31,11 +31,21 @@
     expect(1);
     // Not a bad test to run on collection methods.
     strictEqual(this.elems.itneverends({url: this.url}), this.elems, 'should be chainable');
+    var count = this.elems.children().length;
+    console.log(count);
   });
 
-  test('public function', function() {
+  test('reload data', function() {
     expect(1);
-    strictEqual(this.elems.itneverends('options', {url: 'test2.json'}).data('itneverends').settings.url, 'test2.json', 'does accept new option');
+    var orig = this.elems;
+    strictEqual(this.elems.itneverends('reload'), orig, 'should be reloadable');
+  });
+
+  test('set options', function() {
+    expect(2);
+    var count = this.elems.children().length;
+    strictEqual(this.elems.itneverends('options', {url: 'test2.json'}).data('itneverends').settings.url, 'test2.json', 'does accept new url');
+    strictEqual(this.elems.children().length, count, 'Count:' + count);
   });
 
 }(jQuery));

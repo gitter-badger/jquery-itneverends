@@ -14,6 +14,7 @@
         <div class="list-group" id="myList">
         </div>
         <button class="btn btn-primary" id="reload">Reload Data</button>
+        <button class="btn btn-success" id="toggle">Toggle Data</button>
       </div>
   </div>
   <script id="itneverendsTemplate" type="text/x-template">
@@ -28,14 +29,23 @@
   <script>
   "use strict";
   $(function () {
-    $('#myList').itneverends({
+    var $myList = $('#myList');
+    $myList.itneverends({
       loadOnInit: true,
       height: '200px',
       url: 'test/test.json',
       listTemplate: $('#itneverendsTemplate').html()
     });
     $('#reload').on('click', function () {
-      $('#myList').itneverends('reset');
+      $myList.itneverends('reset');
+    });
+    $('#toggle').on('click', function () {
+      var currentUrl = $myList.itneverends().data('itneverends').settings.url,
+      newUrl = 'test/test2.json';
+      if (currentUrl === newUrl) {
+        newUrl = 'test/test.json';
+      }
+      $myList.itneverends('options', {url: newUrl});
     });
   });
   </script>
