@@ -24,27 +24,28 @@
     setup: function() {
       this.elems = $('#qunit-fixture').children();
       this.url = 'test.json';
+      this.url2 = 'test2.json';
+      this.template = $('#itneverendsTemplate').html();
+      this.loadingDoneFunc = function() { /*console.log(data);*/ };
     }
   });
 
   test('is chainable', function() {
     expect(1);
     // Not a bad test to run on collection methods.
-    strictEqual(this.elems.itneverends({url: this.url}), this.elems, 'should be chainable');
-    var count = this.elems.children().length;
-    console.log(count);
+    strictEqual(this.elems.itneverends({url: this.url, loadingDoneFunc: this.loadingDoneFunc}), this.elems, 'should be chainable');
   });
 
   test('reload data', function() {
     expect(1);
-    var orig = this.elems;
+    var orig = this.elems.itneverends({url: this.url, loadingDoneFunc: this.loadingDoneFunc});
     strictEqual(this.elems.itneverends('reload'), orig, 'should be reloadable');
   });
 
   test('set options', function() {
     expect(2);
     var count = this.elems.children().length;
-    strictEqual(this.elems.itneverends('options', {url: 'test2.json'}).data('itneverends').settings.url, 'test2.json', 'does accept new url');
+    strictEqual(this.elems.itneverends('options', {url: this.url2}).data('itneverends').settings.url, 'test2.json', 'should accept new url');
     strictEqual(this.elems.children().length, count, 'Count:' + count);
   });
 

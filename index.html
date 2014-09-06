@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>jQuery-itneverends</title>
+  <meta charset="utf-8">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="dist/jquery.itneverends.css">
   <link rel="stylesheet" href="css/site.css">
@@ -11,41 +12,65 @@
     <h1>Demo</h1>
     <div class="row">
       <div class="col-md-6">
-        <div class="list-group" id="myList">
-        </div>
-        <button class="btn btn-primary" id="reload">Reload Data</button>
-        <button class="btn btn-success" id="toggle">Toggle Data</button>
+        <div class="list-group" id="myList"></div>
+        <div class="well panel-info" id="info">&nbsp;</div>
+        <button class="btn btn-primary" id="reset">Reset</button>
+        <button class="btn btn-success" id="toggleData">Toggle Data</button>
+        <button class="btn btn-info" id="toggleTemplate">Toggle Template</button>
       </div>
+    </div>
   </div>
   <script id="itneverendsTemplate" type="text/x-template">
     {{ _.forEach(rows, function(row) { }}
-      <a class="list-group-item ">{{- row.name }}</a>
+    <a class="list-group-item ">{{- row.name }} <span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
+    {{ }); }}
+  </script>
+  <script id="itneverendsTemplate2" type="text/x-template">
+    {{ _.forEach(rows, function(row) { }}
+    <a class="list-group-item ">{{- row.name }} <span class="badge">{{= Math.ceil(Math.random() * 10) }}</span></a>
     {{ }); }}
   </script>
   <script src="bower_components/jquery/dist/jquery.js"></script>
   <script src="bower_components/lodash/dist/lodash.js"></script>
   <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
   <script src="src/itneverends.js"></script>
-  <script>
-  "use strict";
+  <script type="text/javascript">
   $(function () {
-    var $myList = $('#myList');
-    $myList.itneverends({
+    "use strict";
+    var $myList = $('#myList'),
+    $info = $('#info'),
+    url1 = 'test/test.json',
+    url2 = 'test/test2.json',
+    _infoTpl = _.template('Showing Records {{= (pageNumber - 1) * pageSize + 1 }} to ' +
+      '{{= (pageNumber - 1) * pageSize + pageSize}}' +
+      ' out of {{= total }}.'),
+    options = {
       loadOnInit: true,
       height: '200px',
-      url: 'test/test.json',
-      listTemplate: $('#itneverendsTemplate').html()
-    });
-    $('#reload').on('click', function () {
-      $myList.itneverends('reset');
-    });
-    $('#toggle').on('click', function () {
-      var currentUrl = $myList.itneverends().data('itneverends').settings.url,
-      newUrl = 'test/test2.json';
-      if (currentUrl === newUrl) {
-        newUrl = 'test/test.json';
+      url: url1,
+      listTemplate: $('#itneverendsTemplate').html(),
+      loadingDoneFunc: function(data) {
+        if (typeof data === 'object') {
+          $info.html(_infoTpl(data));
+        } else {
+          $info.html('Error: ' + data);
+        }
       }
-      $myList.itneverends('options', {url: newUrl});
+    };
+
+    $myList.itneverends(options);
+
+    $('#reset').on('click', function () {
+      $myList.itneverends('options', options);
+    });
+
+    $('#toggleData').on('click', function () {
+      var currentUrl = $myList.itneverends().data('itneverends').settings.url;
+      $myList.itneverends('options', {url: (currentUrl === url1 ? url2 : url1)});
+    });
+    
+    $('#toggleTemplate').on('click', function () {
+      $myList.itneverends('options', {listTemplate: $('#itneverendsTemplate2').html()});
     });
   });
   </script>

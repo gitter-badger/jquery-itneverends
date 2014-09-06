@@ -7,7 +7,7 @@
 * Licensed under the MIT license.
 */
 
-(function ($) {
+(function ($, _) {
   var pluginName = 'itneverends';
   // avoid JSP Tag collision
   _.templateSettings = {
@@ -20,7 +20,7 @@
     var defaults = {
       url: '',
       distance: 15,
-      delay: 200,
+      throttleDelay: 200,
       loadOnInit: true,
       height: 'auto',
       listTemplate: [
@@ -37,14 +37,14 @@
     updateInitiated = false,
     reqParams = {},
     $element = $(element),
-    $listTemplate;
+    _listTemplate;
 
     plugin.settings = {};
 
     plugin.init = function () {
       plugin.settings = $.extend({}, defaults, options);
 
-      $listTemplate = _.template(plugin.settings.listTemplate);
+      _listTemplate = _.template(plugin.settings.listTemplate);
       // arrange element
       $element.wrap('<div class="itneverends-container"></div>').addClass('itneverends').css({height: plugin.settings.height});
       $element.after(plugin.settings.loadingTemplate);
@@ -55,6 +55,7 @@
     };
 
     plugin.options = function (newoptions) {
+      var needsReset = false;
       if (typeof newoptions === 'object') {
         plugin.settings = $.extend({}, plugin.settings, newoptions);
         if (undefined !== newoptions.height) {
@@ -64,9 +65,14 @@
           $element.next().html(plugin.settings.loadingTemplate);
         }
         if (undefined !== newoptions.listTemplate) {
-          $listTemplate = _.template(plugin.settings.listTemplate);
+          _listTemplate = _.template(plugin.settings.listTemplate);
+          needsReset = true;
         }
         if (undefined !== newoptions.url) {
+          needsReset = true;
+        }
+        
+        if (needsReset) {
           plugin.reset();
         }
       }
@@ -99,7 +105,7 @@
           url: plugin.settings.url
         }).done(function (data) {
           if (data) {
-            $el.append($listTemplate(data));
+            $el.append(_listTemplate(data));
             var hasmore = plugin.settings.hasMoreFunc(data, reqParams);
             updateInitiated = false;
             $loading.css({opacity: 0});
@@ -110,13 +116,14 @@
               $el.trigger('scroll');
             }
           }
-        }).fail(function (msg) {
+        }).fail(function (jqXHR, status, msg) {
           updateInitiated = false;
           $loading.css({opacity: 0});
+          plugin.settings.loadingDoneFunc(msg);
           $el.off('scroll', throttledScrollHandler);
         });
       }
-    }, plugin.settings.delay, {leading: false});
+    }, plugin.settings.throttleDelay, {leading: false});
 
     plugin.init();
   };
@@ -148,4 +155,4 @@
       }
     });
   };
-})(jQuery);
+})(jQuery, _);
