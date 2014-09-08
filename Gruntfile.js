@@ -31,7 +31,7 @@ module.exports = function (grunt) {
       },
       site: {
         src: ['less/site.less'],
-        dest: 'css/site.css'
+        dest: 'public/css/site.css'
       }
     },
     concat: {
@@ -69,6 +69,12 @@ module.exports = function (grunt) {
           jshintrc: '.jshintrc'
         },
         src: 'Gruntfile.js'
+      },
+      express: {
+        options: {
+          jshintrc: '.jshintrc'
+        },
+        src: 'index.js'
       },
       src: {
         options: {

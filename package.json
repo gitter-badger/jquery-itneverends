@@ -1,6 +1,6 @@
 {
   "name": "itneverends",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "itneverends",
   "keywords": [
     "jquery-plugin"
@@ -10,6 +10,16 @@
     "name": "Oliver Sahner",
     "email": "osahner@medianet.de",
     "url": "https://github.com/osahner"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "~3.4.x"
+  },
+  "engines": {
+    "node": "0.10.x"
   },
   "repository": {
     "type": "git",

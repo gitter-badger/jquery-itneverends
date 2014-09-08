@@ -3,8 +3,8 @@
 <head>
   <title>jQuery-itneverends</title>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-  <link rel="stylesheet" href="dist/jquery.itneverends.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="jquery.itneverends.css">
   <link rel="stylesheet" href="css/site.css">
 </head>
 <body>
@@ -30,17 +30,17 @@
     <a class="list-group-item ">{{- row.name }} <span class="badge">{{= Math.ceil(Math.random() * 10) }}</span></a>
     {{ }); }}
   </script>
-  <script src="bower_components/jquery/dist/jquery.js"></script>
-  <script src="bower_components/lodash/dist/lodash.js"></script>
-  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-  <script src="src/itneverends.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <script src="jquery.itneverends.js"></script>
   <script type="text/javascript">
   $(function () {
     "use strict";
     var $myList = $('#myList'),
     $info = $('#info'),
-    url1 = 'test/test.json',
-    url2 = 'test/test2.json',
+    url1 = 'test.json',
+    url2 = 'test2.json',
     _infoTpl = _.template('Showing Records {{= (pageNumber - 1) * pageSize + 1 }} to ' +
       '{{= (pageNumber - 1) * pageSize + pageSize}}' +
       ' out of {{= total }}.'),
