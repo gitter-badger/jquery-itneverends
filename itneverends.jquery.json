@@ -2,8 +2,8 @@
   "name": "itneverends",
   "title": "jquery.itneverends",
   "description": "jQuery Infinite Scrolling with JSON Data",
-  "version": "0.0.6",
-  "homepage": "https://github.com/osahner/jquery-itneverends",
+  "version": "0.0.7",
+  "homepage": "http://jquery-itneverends.herokuapp.com/",
   "author": {
     "name": "Oliver Sahner",
     "url": "https://github.com/osahner"
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "https://github.com/osahner/jquery-itneverends"
   },
-  "bugs": "",
+  "bugs": "https://github.com/osahner/jquery-itneverends/issues",
   "licenses": [
     {
       "type": "MIT",

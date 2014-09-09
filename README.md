@@ -58,13 +58,7 @@ jQuery(function($) {
 _(Coming soon)_
 
 ## Examples
-```html
-$('#mylist').itneverends('options', {height: '200px', url: '/new/url', listTemplate: $('#newTemplate').html()});
-
-$('#mylist').itneverends('reset');
-
-```
-
+* [Demo](http://jquery-itneverends.herokuapp.com/)
 
 ## Release History
-_(Nothing yet)_
+_(Coming soon)_

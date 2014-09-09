@@ -1,7 +1,7 @@
 {
-  "name": "Node.js Getting Started",
-  "description": "A barebones Node.js app using Express 4",
-  "repository": "https://github.com/heroku/node-js-getting-started",
+  "name": "jQuery-ItNeverEnds",
+  "description": "jQuery-ItNeverEnds Demo Application",
+  "repository": "https://github.com/osahner/jquery-itneverends",
   "logo": "http://node-js-sample.herokuapp.com/node.svg",
-  "keywords": ["node", "express", "static"]
+  "keywords": ["node", "express", "jquery-itneverends", "itneverends"]
 }
