@@ -36,7 +36,7 @@ app.use('/data', function(req, res) {
   var pageNumber = +req.query.pageNumber || 1,
   pageSize = +req.query.pageSize || 15;
   
-  if(!req.session.dataStore) {
+  if (!req.session.dataStore) {
     req.session.dataStore = initData();
   }
   res.json({
