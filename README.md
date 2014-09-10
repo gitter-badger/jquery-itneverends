@@ -168,7 +168,34 @@ Serverside [JSON datafeed](https://github.com/osahner/jquery-itneverends/blob/ma
 ```
 
 ## Documentation
-_(Coming soon)_
+
+Options
+
+ option | type | required | default | description 
+---|---|---|---|---
+ url | string | true | null | _(Coming soon)_ |
+ distance | integer | false | 15 | _(Coming soon)_ |
+ throttleDelay | integer | false | 200 | _(Coming soon)_ |
+ loadOnInit | boolean | false | true | _(Coming soon)_ |
+ height | string/integer | false | 'auto' | _(Coming soon)_ |
+ listTemplate | string | false | ```html
+{{ _.forEach(rows, function(row) { }}
+<li class="list-item">{{- row.name }}</li>
+{{ }); }}
+``` | _(Coming soon)_ |
+ loadingTemplate | string | false | ```html
+ <div class="loading"><img src="img/ajax-loader.gif" /></li>
+ ``` | _(Coming soon)_ |
+ hasMoreFunc | function | false | ```javascript
+function (data) { return false;}
+``` | _(Coming soon)_ |
+ reqParamsFunc | function | false | ```javascript
+function (params) { return {}; }
+``` | _(Coming soon)_ |
+ loadingDoneFunc | function | false | ```javascript
+function (data) {}
+``` | _(Coming soon)_ |
+
 
 ## Release History
 _(Coming soon)_
