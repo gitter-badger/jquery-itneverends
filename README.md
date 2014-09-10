@@ -178,14 +178,8 @@ Options
  throttleDelay | integer | false | 200 | _(Coming soon)_ |
  loadOnInit | boolean | false | true | _(Coming soon)_ |
  height | string/integer | false | 'auto' | _(Coming soon)_ |
- listTemplate | string | false | ```
-{{ _.forEach(rows, function(row) { }}
-<li class="list-item">{{- row.name }}</li>
-{{ }); }}
-``` | _(Coming soon)_ |
- loadingTemplate | string | false | ```html
- <div class="loading"><img src="img/ajax-loader.gif" /></li>
- ``` | _(Coming soon)_ |
+ listTemplate | string | false | ```{{ _.forEach(rows, function(row) { }}<li class="list-item">{{- row.name }}</li>{{ }); }}``` | _(Coming soon)_ |
+ loadingTemplate | string | false | ``` <div class="loading"><img src="img/ajax-loader.gif" /></li>``` | _(Coming soon)_ |
  hasMoreFunc | function | false | ```javascript
 function (data) { return false;}
 ``` | _(Coming soon)_ |
