@@ -37,7 +37,7 @@ jQuery(function($) {
     url: '/some/json/datafeed',
     height: '400px',
     listTemplate: $('#itneverendsTemplate').html(),
-    reqParamsFunc: function (params) {
+    requestParams: function (params) {
       return {
         pageNumber: params.pageNumber ? ++params.pageNumber : reqParams.pageNumber,
         pageSize: params.pageSize || reqParams.pageSize,
@@ -45,7 +45,7 @@ jQuery(function($) {
         sortOrder: params.sortOrder || reqParams.sortOrder
       };
     },
-    hasMoreFunc: function (data, params) {
+    hasMore: function (data, params) {
       return (data && params.pageNumber * params.pageSize < data.total);
     }
   });
@@ -93,7 +93,7 @@ The [HTML](https://github.com/osahner/jquery-itneverends/blob/master/public/inde
       height: '200px',
       url: 'data',
       listTemplate: $('#itneverendsTemplate').html(),
-      reqParamsFunc: function (params) {
+      requestParams: function (params) {
         return {
           pageNumber: params.pageNumber ? ++params.pageNumber : reqParams.pageNumber,
           pageSize: params.pageSize || reqParams.pageSize,
@@ -101,12 +101,12 @@ The [HTML](https://github.com/osahner/jquery-itneverends/blob/master/public/inde
           sortOrder: params.sortOrder || reqParams.sortOrder
         };
       },
-      hasMoreFunc: function (data, params) {
+      hasMore: function (data, params) {
         data.pageSize = +data.pageSize;
         data.pageNumber = +data.pageNumber;
         return (data && ((data.pageNumber - 1) * data.pageSize + data.pageSize) < data.total);
       },
-      loadingDoneFunc: function(data) {
+      loadingDone: function(data) {
         if (typeof data === 'object') {
           data.pageSize = +data.pageSize;
           data.pageNumber = +data.pageNumber;
@@ -174,16 +174,17 @@ Options
  option | type | required | default | description 
 ---|---|---|---|---
  url | string | true | null | _(Coming soon)_ |
- distance | integer | false | 15 | _(Coming soon)_ |
+ distance | integer | false | 30 | _(Coming soon)_ |
  throttleDelay | integer | false | 200 | _(Coming soon)_ |
  loadOnInit | boolean | false | true | _(Coming soon)_ |
  height | string/integer | false | 'auto' | _(Coming soon)_ |
- listTemplate | string | false | ```html {{ _.forEach(rows, function(row) { }}<li class="list-item">{{- row.name }}</li>{{ }); }} ``` | _(Coming soon)_ |
+ listTemplate | string | false | ``` {{ _.forEach(rows, function(row) { }}<li class="list-item">{{- row.name }}</li>{{ }); }} ``` | _(Coming soon)_ |
  loadingTemplate | string | false | ``` <div class="loading"><img src="img/ajax-loader.gif" /></li> ``` | _(Coming soon)_ |
- hasMoreFunc | function | false | ```javascript function (data) { return false;} ``` | _(Coming soon)_ |
- reqParamsFunc | function | false | ``` function (params) { return {}; } ``` | _(Coming soon)_ |
- loadingDoneFunc | function | false | ```javascript function (data) {} ``` | _(Coming soon)_ |
+ hasMore | function | false | ``` function (data) { return false;} ``` | _(Coming soon)_ |
+ requestParams | function | false | ``` function (params) { return {}; } ``` | _(Coming soon)_ |
+ loadingDone | function | false | ``` function (data) {} ``` | _(Coming soon)_ |
 
 
 ## Release History
-_(Coming soon)_
+
+* v0.0.8 Renamed Options hasMoreFunc to hasMore, reqParamsFunc to requestParams and loadingDoneFunc to loadingDone.

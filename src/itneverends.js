@@ -29,9 +29,9 @@
       '{{ }); }}'
       ].join(''),
       loadingTemplate: '<div class="loading"><img src="img/ajax-loader.gif" /></li>',
-      hasMoreFunc: function (data) { return  false;},
-      reqParamsFunc: function (params) { return {}; },
-      loadingDoneFunc: function (data) {}
+      hasMore: function (data) { return  false;},
+      requestParams: function (params) { return {}; },
+      loadingDone: function (data) {}
     },
     plugin = this,
     updateInitiated = false,
@@ -99,17 +99,17 @@
         var $loading = $element.next();
         $loading.css({opacity: 1});
         updateInitiated = true;
-        reqParams = plugin.settings.reqParamsFunc(reqParams);
+        reqParams = plugin.settings.requestParams(reqParams);
         $.ajax({
           data: reqParams,
           url: plugin.settings.url
         }).done(function (data) {
           if (data) {
             $el.append(_listTemplate(data));
-            var hasmore = plugin.settings.hasMoreFunc(data, reqParams);
+            var hasmore = plugin.settings.hasMore(data, reqParams);
             updateInitiated = false;
             $loading.css({opacity: 0});
-            plugin.settings.loadingDoneFunc(data);
+            plugin.settings.loadingDone(data);
             if (!hasmore) {
               $el.off('scroll', throttledScrollHandler);
             } else if ($el.innerHeight() >= $el[0].scrollHeight) {
@@ -119,7 +119,7 @@
         }).fail(function (jqXHR, status, msg) {
           updateInitiated = false;
           $loading.css({opacity: 0});
-          plugin.settings.loadingDoneFunc(msg);
+          plugin.settings.loadingDone(msg);
           $el.off('scroll', throttledScrollHandler);
         });
       }

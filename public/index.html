@@ -51,7 +51,7 @@
       height: '200px',
       url: 'data',
       listTemplate: $('#itneverendsTemplate').html(),
-      reqParamsFunc: function (params) {
+      requestParams: function (params) {
         return {
           pageNumber: params.pageNumber ? ++params.pageNumber : reqParams.pageNumber,
           pageSize: params.pageSize || reqParams.pageSize,
@@ -59,12 +59,12 @@
           sortOrder: params.sortOrder || reqParams.sortOrder
         };
       },
-      hasMoreFunc: function (data, params) {
+      hasMore: function (data, params) {
         data.pageSize = +data.pageSize;
         data.pageNumber = +data.pageNumber;
         return (data && ((data.pageNumber - 1) * data.pageSize + data.pageSize) < data.total);
       },
-      loadingDoneFunc: function(data) {
+      loadingDone: function(data) {
         if (typeof data === 'object') {
           data.pageSize = +data.pageSize;
           data.pageNumber = +data.pageNumber;

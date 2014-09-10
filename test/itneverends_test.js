@@ -26,19 +26,19 @@
       this.url = 'test.json';
       this.url2 = 'test2.json';
       this.template = $('#itneverendsTemplate').html();
-      this.loadingDoneFunc = function() { /*console.log(data);*/ };
+      this.loadingDone = function() { /*console.log(data);*/ };
     }
   });
 
   test('is chainable', function() {
     expect(1);
     // Not a bad test to run on collection methods.
-    strictEqual(this.elems.itneverends({url: this.url, loadingDoneFunc: this.loadingDoneFunc}), this.elems, 'should be chainable');
+    strictEqual(this.elems.itneverends({url: this.url, loadingDone: this.loadingDone}), this.elems, 'should be chainable');
   });
 
   test('reload data', function() {
     expect(1);
-    var orig = this.elems.itneverends({url: this.url, loadingDoneFunc: this.loadingDoneFunc});
+    var orig = this.elems.itneverends({url: this.url, loadingDone: this.loadingDone});
     strictEqual(this.elems.itneverends('reload'), orig, 'should be reloadable');
   });
 
