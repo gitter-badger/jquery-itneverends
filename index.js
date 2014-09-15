@@ -2,8 +2,8 @@ var express = require('express');
 var faker = require('faker');
 var app = express();
 
-var MAX = process.env.MAX || 100;
-var MIN = process.env.MIN || 20;
+var MAX = +process.env.MAX || 100;
+var MIN = +process.env.MIN || 20;
 
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
@@ -35,7 +35,7 @@ app.use('/data', function(req, res) {
   'use strict';
   var pageNumber = +req.query.pageNumber || 1,
   pageSize = +req.query.pageSize || 15;
-  
+
   if (!req.session.dataStore) {
     req.session.dataStore = initData();
   }
