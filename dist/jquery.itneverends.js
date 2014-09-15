@@ -1,4 +1,4 @@
-/*! itneverends - v0.0.8 - 2014-09-14
+/*! itneverends - v0.0.8 - 2014-09-15
 * https://github.com/osahner/jquery-itneverends
 * Copyright (c) 2014 Oliver Sahner <osahner@gmail.com>; Licensed MIT */
 /*
