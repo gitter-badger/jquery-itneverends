@@ -2,8 +2,8 @@ var express = require('express');
 var faker = require('faker');
 var app = express();
 
-var MAX = +process.env.MAX || 100;
-var MIN = +process.env.MIN || 20;
+var MAX = +process.env.MAX || 2000;
+var MIN = +process.env.MIN || 1000;
 
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));

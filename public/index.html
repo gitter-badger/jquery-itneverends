@@ -42,13 +42,14 @@
     _infoTpl = _.template('Loaded records from {{= from }} to {{= to }} out of {{= total }}.'),
     reqParams = {
       pageNumber: 1,
-      pageSize: 20,
+      pageSize: 100,
       sortName: 'name',
       sortOrder: 'asc'
     },
     options = {
       loadOnInit: true,
       height: '200px',
+      distance: 75,
       url: 'data',
       listTemplate: $('#itneverendsTemplate').html(),
       requestParams: function (params) {
@@ -88,10 +89,10 @@
       $.ajax({
         url: 'randomize'
       }).done(function () {
-        $myList.itneverends('reset');        
+        $myList.itneverends('reset');
       });
     });
-    
+
     $('#toggleTemplate').on('click', function () {
       $myList.itneverends('options', {listTemplate: $('#itneverendsTemplate2').html()});
     });
