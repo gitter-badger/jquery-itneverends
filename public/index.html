@@ -3,7 +3,7 @@
 <head>
   <title>jQuery-itNeverEnds</title>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="jquery.itneverends.css">
   <link rel="stylesheet" href="css/site.css">
 </head>
@@ -22,22 +22,24 @@
   </div>
   <script id="itneverendsTemplate" type="text/x-template">
     {{ _.forEach(rows, function(row) { }}
-    <a class="list-group-item ">{{= row.idx }}.) {{- row.name }} <span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
+    <a class="list-group-item" data-name="{{- row.name }}">{{= row.idx }}.) {{- row.name }} <span class="glyphicon glyphicon-chevron-right pull-right"></span></a>
     {{ }); }}
   </script>
   <script id="itneverendsTemplate2" type="text/x-template">
     {{ _.forEach(rows, function(row) { }}
-    <a class="list-group-item ">{{- row.name }} <span class="badge">{{= Math.ceil(Math.random() * 10) }}</span></a>
+    <a class="list-group-item" data-name="{{- row.name }}">{{- row.name }} <span class="badge">{{= Math.ceil(Math.random() * 10) }}</span></a>
     {{ }); }}
   </script>
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
   <script src="jquery.itneverends.js"></script>
   <script type="text/javascript">
+  /*global $:false, _:false */
   $(function () {
-    "use strict";
+    'use strict';
     var $myList = $('#myList'),
+    currentTpl = '#itneverendsTemplate',
     $info = $('#info'),
     _infoTpl = _.template('Loaded records from {{= from }} to {{= to }} out of {{= total }}.'),
     reqParams = {
@@ -49,9 +51,9 @@
     options = {
       loadOnInit: true,
       height: '200px',
-      distance: 75,
+      distance: 100,
       url: 'data',
-      listTemplate: $('#itneverendsTemplate').html(),
+      listTemplate: $(currentTpl).html(),
       requestParams: function (params) {
         return {
           pageNumber: params.pageNumber ? ++params.pageNumber : reqParams.pageNumber,
@@ -71,7 +73,7 @@
           data.pageNumber = +data.pageNumber;
           data.from = (data.pageNumber - 1) * data.pageSize + 1;
           data.to =  (data.pageNumber - 1) * data.pageSize + data.pageSize;
-          if (data.to > data.total) data.to = data.total;
+          if (data.to > data.total) { data.to = data.total; }
           $info.html(_infoTpl(data));
         } else {
           $info.html('Error: ' + data);
@@ -80,6 +82,13 @@
     };
 
     $myList.itneverends(options);
+
+    $myList.on('click', '.list-group-item', function () {
+      var $el = $(this);
+      $myList.find('.active').removeClass('active');
+      $el.addClass('active');
+      $info.html('Clicked on: ' + $el.data('name'));
+    });
 
     $('#reset').on('click', function () {
       $myList.itneverends('options', options);
@@ -94,7 +103,8 @@
     });
 
     $('#toggleTemplate').on('click', function () {
-      $myList.itneverends('options', {listTemplate: $('#itneverendsTemplate2').html()});
+      currentTpl = (currentTpl === '#itneverendsTemplate' ? '#itneverendsTemplate2' : '#itneverendsTemplate');
+      $myList.itneverends('options', {listTemplate: $(currentTpl).html()});
     });
   });
   </script>

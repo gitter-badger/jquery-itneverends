@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express');
 var faker = require('faker');
 var app = express();
@@ -12,7 +14,6 @@ app.use(express.cookieParser());
 app.use(express.session({secret: 'dffq3r3444ewdas1'}));
 
 function initData () {
-  'use strict';
   var rnd = Math.floor(Math.random() * (MAX - MIN + 1)) + MIN;
   var result = [];
   for (var i = 0; i < rnd;) {
@@ -26,13 +27,11 @@ function initData () {
 }
 
 app.use('/randomize', function(req, res) {
-  'use strict';
   req.session.dataStore = initData();
   res.json({'status': 'ok'});
 });
 
 app.use('/data', function(req, res) {
-  'use strict';
   var pageNumber = +req.query.pageNumber || 1,
   pageSize = +req.query.pageSize || 15;
 
@@ -50,5 +49,4 @@ app.use('/data', function(req, res) {
 });
 
 app.listen(app.get('port'), function() {
-  'use strict';
 });
