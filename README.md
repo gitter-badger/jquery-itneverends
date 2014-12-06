@@ -1,4 +1,5 @@
 # jquery.itneverends
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/osahner/jquery-itneverends?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 jQuery Infinite Scrolling with JSON Data Feed
 
